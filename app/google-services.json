@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "630821019457",
+    "project_id": "notifications-hover",
+    "storage_bucket": "notifications-hover.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:630821019457:android:7f0a1f899a9be2ff6e4bc0",
+        "android_client_info": {
+          "package_name": "com.example.notifications_hover"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "630821019457-3jv740jtkvjdfnj4qvrne6qc3u8scvlu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRZ6ScfKdW2fMCkU-JjXk2aZbahg0MB9Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "630821019457-3jv740jtkvjdfnj4qvrne6qc3u8scvlu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
