@@ -1,5 +1,9 @@
 package com.example.notifications_hover.app;
 
+import com.example.notifications_hover.Notification.Notification;
+
+import java.util.List;
+
 public class Config {
 
     // global topic to receive app wide push notifications
@@ -14,5 +18,5 @@ public class Config {
     public static final int NOTIFICATION_ID_BIG_IMAGE = 101;
 
     public static final String SHARED_PREF = "ah_firebase";
-
+    public static List<Notification> list_notifications;
 }

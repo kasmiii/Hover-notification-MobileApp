@@ -27,7 +27,7 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
 
         // Saving reg id to shared preferences
         storeRegIdInPref(refreshedToken);
-
+        System.out.println("registration id------------------------  is::"+refreshedToken);
         // sending reg id to your server
         sendRegistrationToServer(refreshedToken);
 

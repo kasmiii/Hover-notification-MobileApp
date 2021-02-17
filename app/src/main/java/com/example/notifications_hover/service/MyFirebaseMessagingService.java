@@ -10,6 +10,7 @@ import android.util.Log;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import com.example.notifications_hover.Notification.Notification;
 import com.example.notifications_hover.activity.MainActivity;
 import com.example.notifications_hover.app.Config;
 import com.example.notifications_hover.utils.NotificationUtils;
@@ -18,6 +19,8 @@ import com.google.firebase.messaging.RemoteMessage;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.Date;
 
 //import info.androidhive.firebasenotifications.activity.MainActivity;
 //import info.androidhive.firebasenotifications.app.Config;
@@ -42,7 +45,16 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         // Check if message contains a notification payload.
         if (remoteMessage.getNotification() != null) {
-            Log.e(TAG, "Notification Body: " + remoteMessage.getNotification().getBody());
+            //Log.e(TAG, "Notification Body: " + remoteMessage.getNotification().getBody());
+            System.out.println("Notification Body: " + remoteMessage.getNotification().getBody());
+            System.out.println("Notification Title::" + remoteMessage.getNotification().getTitle());
+            Notification notification = new Notification(remoteMessage.getNotification().getTitle(),
+                    remoteMessage.getNotification().getBody(),
+                    0,
+                    new Date());
+
+            //Config.list_notifications.add(notification);
+            Config.list_notifications.add(0,notification);
             handleNotification(remoteMessage.getNotification().getBody());
         }
 

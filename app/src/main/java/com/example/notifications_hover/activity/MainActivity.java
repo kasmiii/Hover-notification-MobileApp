@@ -13,24 +13,38 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.notifications_hover.Notification.Notification;
 import com.example.notifications_hover.R;
+import com.example.notifications_hover.adapters.MyAdapter;
 import com.example.notifications_hover.app.Config;
 import com.example.notifications_hover.utils.NotificationUtils;
 import com.google.firebase.messaging.FirebaseMessaging;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
     private BroadcastReceiver mRegistrationBroadcastReceiver;
-    private TextView txtRegId, txtMessage;
+    private TextView txtMessage;
+    private RecyclerView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        txtRegId = (TextView) findViewById(R.id.txt_reg_id);
+        //setting the recycler view
+        listView=findViewById(R.id.list_notifications);
+        listView.setLayoutManager(new LinearLayoutManager(MainActivity.this, RecyclerView.VERTICAL,false));
+
+        //creation de la liste de notifications
+        Config.list_notifications=new ArrayList<Notification>();
+
+
         txtMessage = (TextView) findViewById(R.id.txt_push_message);
 
         mRegistrationBroadcastReceiver = new BroadcastReceiver() {
@@ -48,16 +62,13 @@ public class MainActivity extends AppCompatActivity {
                 } else if (intent.getAction().equals(Config.PUSH_NOTIFICATION)) {
                     // new push notification is received
 
-                    String message = intent.getStringExtra("message");
+                    processNotifications();
 
-                    Toast.makeText(getApplicationContext(), "Push notification: " + message, Toast.LENGTH_LONG).show();
-
-                    txtMessage.setText(message);
                 }
             }
         };
 
-        displayFirebaseRegId();
+        //displayFirebaseRegId();
     }
 
     // Fetches reg id from shared preferences
@@ -68,10 +79,12 @@ public class MainActivity extends AppCompatActivity {
 
         Log.e(TAG, "Firebase reg id: " + regId);
 
-        if (!TextUtils.isEmpty(regId))
-            txtRegId.setText("Firebase Reg Id: " + regId);
-        else
-            txtRegId.setText("Firebase Reg Id is not received yet!");
+        if (!TextUtils.isEmpty(regId)) {
+            //txtRegId.setText("Firebase Reg Id: " + regId);
+            System.out.println("RegId::"+regId);
+        }
+        //else
+            //txtRegId.setText("Firebase Reg Id is not received yet!");
     }
 
     @Override
@@ -91,6 +104,10 @@ public class MainActivity extends AppCompatActivity {
         NotificationUtils.clearNotifications(getApplicationContext());
     }
 
+    public void processNotifications(){
+        MyAdapter notificationAdapter=new MyAdapter(MainActivity.this,Config.list_notifications);//,HomeActivity.this);
+        listView.setAdapter(notificationAdapter);
+    }
     @Override
     protected void onPause() {
         LocalBroadcastManager.getInstance(this).unregisterReceiver(mRegistrationBroadcastReceiver);
