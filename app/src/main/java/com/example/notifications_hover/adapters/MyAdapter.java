@@ -63,7 +63,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.CustomViewHolder> 
         holder.textViewBody.setText(notificationList.get(position).getBody());
         SimpleDateFormat ft = new SimpleDateFormat ("hh:mm:ss");
         holder.TextViewTimeStamp.setText(ft.format(notificationList.get(position).getDate()));
-        //holder.ImageView.setImageResource(0);
+
+        if( notificationList.get(position).getTitle().contains("distance") ){
+            holder.ImageView.setImageResource(R.drawable.distance);
+        }
+        else
+            holder.ImageView.setImageResource(R.drawable.mask);
+
 
         holder.itemView.setOnTouchListener(new OnSwipeTouchListener(context){
 
