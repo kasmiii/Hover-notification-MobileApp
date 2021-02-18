@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private BroadcastReceiver mRegistrationBroadcastReceiver;
     private TextView txtMessage;
     private RecyclerView listView;
+    public static boolean suppression;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,12 +62,17 @@ public class MainActivity extends AppCompatActivity {
 
                 } else if (intent.getAction().equals(Config.PUSH_NOTIFICATION)) {
                     // new push notification is received
-
+                    System.out.println("suppression== "+MainActivity.suppression);
                     processNotifications();
-
+                    //MainActivity.suppression=false;
+                    if(MainActivity.suppression==true){
+                        processNotifications();
+                        MainActivity.suppression=false;
+                    }
                 }
             }
         };
+
 
         //displayFirebaseRegId();
     }

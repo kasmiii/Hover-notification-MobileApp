@@ -7,9 +7,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.notifications_hover.Notification.Notification;
 import com.example.notifications_hover.R;
+import com.example.notifications_hover.activity.MainActivity;
+import com.example.notifications_hover.app.Config;
+import com.example.notifications_hover.listeners.OnSwipeTouchListener;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -53,15 +58,28 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.CustomViewHolder> 
     }
 
     @Override
-    public void onBindViewHolder(CustomViewHolder holder, int position) {
+    public void onBindViewHolder(CustomViewHolder holder, final int position) {
         holder.textViewTitle.setText(notificationList.get(position).getTitle());
         holder.textViewBody.setText(notificationList.get(position).getBody());
         SimpleDateFormat ft = new SimpleDateFormat ("hh:mm:ss");
         holder.TextViewTimeStamp.setText(ft.format(notificationList.get(position).getDate()));
         //holder.ImageView.setImageResource(0);
 
-    }
+        holder.itemView.setOnTouchListener(new OnSwipeTouchListener(context){
 
+            public void onSwipeRight() {
+                //Toast.makeText(context, "Swip Right ! at index:: "+position, Toast.LENGTH_SHORT).show();
+            }
+
+            public void onSwipeLeft() {
+                Toast.makeText(context, "Swip Left ! at index:: "+position, Toast.LENGTH_SHORT).show();
+                Config.list_notifications.remove(position);
+                MainActivity.suppression=true;
+            }
+        });
+
+        //holder.itemView.setOnTouchListener(new OnSwipeTouchListener(context));
+    }
 
     @Override
     public int getItemCount() {

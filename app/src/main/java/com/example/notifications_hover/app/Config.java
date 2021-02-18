@@ -19,4 +19,5 @@ public class Config {
 
     public static final String SHARED_PREF = "ah_firebase";
     public static List<Notification> list_notifications;
+    //public static boolean suppression;
 }
